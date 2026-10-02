@@ -21,3 +21,4 @@ Quando abrir o menu aparecera 5 opcoes:
 
 *Polimorfismo:* permite que uma mesma função tenha comportamentos diferentes. Por exemplo, o método jogar() pode funcionar de uma forma para Futsal e de outra para eSports.
 
+//obs: não deu tempo de fazer a parte de criacoes de convites somente a parte de cadastrar equipes, partidas e hitorico pois faltou um pouco de tempo 
