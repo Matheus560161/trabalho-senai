@@ -58,21 +58,78 @@ public class Menu
     {
         Console.WriteLine("\n===== NOVA PARTIDA =====");
 
-        equipes.Consultar();
+        Console.WriteLine("Escolha a modalidade:");
+        Console.WriteLine("1 - Futsal");
+        Console.WriteLine("2 - eSports");
+        Console.Write("Escolha: ");
 
-        Console.Write("Escolha o número do primeiro time: ");
+        string opcao = Console.ReadLine();
+
+        string modalidade;
+
+        if (opcao == "1")
+        {
+            modalidade = "Futsal";
+        }
+        else if (opcao == "2")
+        {
+            modalidade = "eSports";
+        }
+        else
+        {
+            Console.WriteLine("Modalidade inválida!");
+            return;
+        }
+
+        List<Time> timesDisponiveis = new List<Time>();
+
+        for (int i = 0; i < equipes.ListaEquipes.Count; i++)
+        {
+            if (equipes.ListaEquipes[i].Modalidade == modalidade)
+            {
+                timesDisponiveis.Add(equipes.ListaEquipes[i]);
+            }
+        }
+
+        if (timesDisponiveis.Count < 2)
+        {
+            Console.WriteLine("É necessário ter pelo menos 2 equipes dessa modalidade.");
+            return;
+        }
+
+        Console.WriteLine("\n===== TIMES DISPONÍVEIS =====");
+
+        for (int i = 0; i < timesDisponiveis.Count; i++)
+        {
+            Console.WriteLine($"{i + 1} - {timesDisponiveis[i].Nome}");
+        }
+
+        Console.Write("Escolha o primeiro time: ");
         int numero1 = int.Parse(Console.ReadLine()) - 1;
 
-        Console.Write("Escolha o número do segundo time: ");
+        Console.Write("Escolha o segundo time: ");
         int numero2 = int.Parse(Console.ReadLine()) - 1;
 
-        Time time1 = equipes.ListaEquipes[numero1];
-        Time time2 = equipes.ListaEquipes[numero2];
+        if (numero1 < 0 || numero1 >= timesDisponiveis.Count ||
+            numero2 < 0 || numero2 >= timesDisponiveis.Count)
+        {
+            Console.WriteLine("Número de equipe inválido!");
+            return;
+        }
+
+        if (numero1 == numero2)
+        {
+            Console.WriteLine("Não pode escolher o mesmo time!");
+            return;
+        }
+
+        Time time1 = timesDisponiveis[numero1];
+        Time time2 = timesDisponiveis[numero2];
 
         Partidas partida = new Partidas(
             time1,
             time2,
-            time1.Modalidade
+            modalidade
         );
 
         partida.jogar();
